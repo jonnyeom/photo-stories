@@ -1,0 +1,97 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "enabledManagers": ["composer","npm"],
+    "extends": [
+        "config:recommended",
+        ":automergePatch",
+        "schedule:weekends",
+        "schedule:automergeEarlyMondays"
+    ],
+    "dependencyDashboard": true,
+    "timezone": "America/New_York",
+    "rangeStrategy": "bump",
+    "assignAutomerge": true,
+    "packageRules": [
+        {
+            "description": "Don't bump the php constraint in composer.json; we manage that ourselves",
+            "matchPackageNames": ["php"],
+            "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "league/commonmark",
+                "leogout/seo-bundle",
+                "nelmio/cors-bundle"
+            ],
+            "matchPackagePatterns": [
+                "spatie"
+            ],
+            "groupName": "application packages",
+            "groupSlug": "application"
+        },
+        {
+            "matchPackagePatterns": [
+                "api-platform"
+            ],
+            "groupName": "api-platform packages",
+            "groupSlug": "api-platform"
+        },
+        {
+            "matchPackagePatterns": [
+                "doctrine/annotations"
+            ],
+            "groupName": "doctrine packages",
+            "groupSlug": "doctrine"
+        },
+        {
+            "matchPackagePatterns": [
+                "phpunit/phpunit"
+            ],
+            "groupName": "phpunit packages",
+            "groupSlug": "phpunit"
+        },
+        {
+            "matchPackageNames": [
+                "dealerdirect/phpcodesniffer-composer-installer",
+                "doctrine/coding-standard",
+                "rector/rector",
+                "squizlabs/php_codesniffer"
+            ],
+            "matchPackagePatterns": [
+                "^phpstan/phpstan$",
+                "/phpstan-",
+                "phpstan/phpdoc-parser"
+            ],
+            "groupName": "Code Quality packages",
+            "groupSlug": "code-quality"
+        },
+        {
+            "matchPackagePrefixes": [
+                "twig/"
+            ],
+            "groupName": "twig packages",
+            "groupSlug": "twig"
+        },
+        {
+            "groupName": "symfony packages",
+            "groupSlug": "symfony",
+            "matchPackagePrefixes": [
+                "symfony/"
+            ],
+            "separateMinorPatch": true
+        },
+        {
+            "description": "Don't upgrade phpunit/phpunit to 10.x until we do it ourselves",
+            "matchPackageNames": ["phpunit/phpunit"],
+            "matchCurrentVersion": "<10.0.0",
+            "allowedVersions": "<10.0.0"
+        },
+        {
+            "description": "Don't upgrade symfony to 7.x until we do it ourselves",
+            "matchPackagePrefixes": [
+                "symfony/"
+            ],
+            "allowedVersions": "<7.0.0"
+        }
+    ]
+}
