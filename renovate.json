@@ -5,15 +5,18 @@
         "npm"
     ],
     "extends": [
-        "config:recommended",
-        ":automergePatch",
+        "config:best-practices",
+        "default:automergePatch",
+        "default:maintainLockFilesWeekly",
+        "default:separateMultipleMajorReleases",
         "schedule:weekends",
         "schedule:automergeEarlyMondays"
     ],
     "dependencyDashboard": true,
     "timezone": "America/New_York",
     "rangeStrategy": "bump",
-    "assignAutomerge": true,
+    "automergeType": "branch",
+    "minimumReleaseAge": "7 days",
     "packageRules": [
         {
             "description": "Don't bump the php constraint in composer.json; we manage that ourselves",
@@ -47,13 +50,6 @@
             ]
         },
         {
-            "groupName": "phpunit packages",
-            "groupSlug": "phpunit",
-            "matchPackageNames": [
-                "/phpunit/phpunit/"
-            ]
-        },
-        {
             "matchPackageNames": [
                 "dealerdirect/phpcodesniffer-composer-installer",
                 "doctrine/coding-standard",
@@ -61,10 +57,11 @@
                 "squizlabs/php_codesniffer",
                 "/^phpstan/phpstan$/",
                 "//phpstan-/",
-                "/phpstan/phpdoc-parser/"
+                "/phpstan/phpdoc-parser/",
+                "/phpunit/phpunit/"
             ],
-            "groupName": "Code Quality packages",
-            "groupSlug": "code-quality"
+            "groupName": "Development packages",
+            "groupSlug": "dev"
         },
         {
             "groupName": "twig packages",
